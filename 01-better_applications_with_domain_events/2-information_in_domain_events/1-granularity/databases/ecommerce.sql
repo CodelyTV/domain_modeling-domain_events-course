@@ -20,6 +20,7 @@ CREATE TABLE seller_backoffice__products (
 CREATE TABLE shop__users (
     id              UUID PRIMARY KEY,
     name            VARCHAR(255),
+    email           VARCHAR(255),
     profile_picture VARCHAR(255)
 );
 
@@ -41,7 +42,7 @@ SELECT p.id,
        JSON_OBJECT(
                'comment', MAX(IF(r.is_featured = 1, r.comment, NULL)),
                'rating', MAX(IF(r.is_featured = 1, r.rating, NULL))
-           )         AS featured_review,
+       )             AS featured_review,
        AVG(r.rating) AS rating
 FROM seller_backoffice__products p
          LEFT JOIN shop__product_reviews r ON p.id = r.product_id

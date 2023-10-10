@@ -6,26 +6,30 @@ import { UserRepository } from "../domain/UserRepository";
 type DatabaseUser = {
 	id: string;
 	name: string;
+	email: string;
 	profile_picture: string;
 };
 
 export class MySqlUserRepository implements UserRepository {
 	constructor(private readonly connection: MariaDBConnection) {}
 
-	async save(product: User): Promise<void> {
+	async save(user: User): Promise<void> {
+		const userPrimitives = user.toPrimitives();
+
 		const query = `
-			INSERT INTO shop__users (id, name, profile_picture)
+			INSERT INTO shop__users (id, name, email, profile_picture)
 			VALUES (
-				'${product.id.value}',
-				'${product.name.value}',
-				'${product.profilePicture.value}'
+				'${userPrimitives.id}',
+				'${userPrimitives.name}',
+				'${userPrimitives.email}',
+				'${userPrimitives.profilePicture}'
 			);`;
 
 		await this.connection.execute(query);
 	}
 
 	async search(id: UserId): Promise<User | null> {
-		const query = `SELECT id, name, profile_picture FROM shop__users WHERE id = '${id.value}';`;
+		const query = `SELECT id, name, email, profile_picture FROM shop__users WHERE id = '${id.value}';`;
 
 		const result = await this.connection.searchOne<DatabaseUser>(query);
 
@@ -33,6 +37,11 @@ export class MySqlUserRepository implements UserRepository {
 			return null;
 		}
 
-		return new User(result.id, result.name, result.profile_picture);
+		return User.fromPrimitives({
+			id: result.id,
+			name: result.name,
+			email: result.email,
+			profilePicture: result.profile_picture,
+		});
 	}
 }
