@@ -7,7 +7,15 @@ export class MockUserRepository implements UserRepository {
 	private readonly mockSearch = jest.fn();
 
 	async save(user: User): Promise<void> {
-		expect(this.mockSave).toHaveBeenCalledWith(user);
+		expect(this.mockSave).toHaveBeenCalledWith(user.toPrimitives());
+
+		// Or:
+		// expect(this.mockSave).toHaveBeenCalledWith(
+		// 	expect.objectContaining({
+		// 		...user,
+		// 		domainEvents: expect.anything(),
+		// 	}),
+		// );
 	}
 
 	async search(id: UserId): Promise<User | null> {
@@ -17,7 +25,7 @@ export class MockUserRepository implements UserRepository {
 	}
 
 	shouldSave(user: User): void {
-		this.mockSave(user);
+		this.mockSave(user.toPrimitives());
 	}
 
 	shouldSearch(user: User): void {

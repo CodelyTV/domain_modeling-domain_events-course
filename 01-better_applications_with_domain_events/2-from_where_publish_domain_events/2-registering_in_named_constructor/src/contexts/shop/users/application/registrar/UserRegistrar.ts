@@ -1,6 +1,5 @@
 import { EventBus } from "../../../../shared/domain/EventBus";
 import { User } from "../../domain/User";
-import { UserRegisteredDomainEvent } from "../../domain/UserRegisteredDomainEvent";
 import { UserRepository } from "../../domain/UserRepository";
 
 export class UserRegistrar {
@@ -13,6 +12,6 @@ export class UserRegistrar {
 		const user = User.create(id, name, email, profilePicture);
 
 		await this.repository.save(user);
-		await this.eventBus.publish([new UserRegisteredDomainEvent(id, name, email, profilePicture)]);
+		await this.eventBus.publish(user.pullDomainEvents());
 	}
 }
