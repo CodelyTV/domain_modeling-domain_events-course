@@ -12,7 +12,7 @@ export type UserPrimitives = {
 
 export class User {
 	private constructor(
-		private readonly id: UserId,
+		public readonly id: UserId,
 		private readonly name: UserName,
 		private readonly email: UserEmail,
 		private readonly profilePicture: UserProfilePicture,
