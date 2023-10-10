@@ -9,9 +9,6 @@ export class UserRegistrar {
 	) {}
 
 	async registrar(id: string, name: string, email: string, profilePicture: string): Promise<void> {
-		const user = User.create(id, name, email, profilePicture);
-
-		await this.repository.save(user);
-		await this.eventBus.publish(user.pullDomainEvents());
+		await User.create(this.repository, this.eventBus)(id, name, email, profilePicture);
 	}
 }
