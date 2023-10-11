@@ -1,4 +1,5 @@
 import { AggregateRoot } from "../../../shared/domain/AggregateRoot";
+import { UserArchivedDomainEvent } from "./UserArchivedDomainEvent";
 import { UserEmail } from "./UserEmail";
 import { UserEmailUpdatedDomainEvent } from "./UserEmailUpdatedDomainEvent";
 import { UserId } from "./UserId";
@@ -6,7 +7,6 @@ import { UserName } from "./UserName";
 import { UserProfilePicture } from "./UserProfilePicture";
 import { UserRegisteredDomainEvent } from "./UserRegisteredDomainEvent";
 import { UserStatus } from "./UserStatus";
-import { UserStatusUpdatedDomainEvent } from "./UserStatusUpdatedDomainEvent";
 
 export type UserPrimitives = {
 	id: string;
@@ -69,9 +69,9 @@ export class User extends AggregateRoot {
 		this.record(new UserEmailUpdatedDomainEvent(this.id.value, email));
 	}
 
-	updateStatus(status: UserStatus): void {
-		this.status = status;
+	archive(): void {
+		this.status = UserStatus.Archived;
 
-		this.record(new UserStatusUpdatedDomainEvent(this.id.value, status));
+		this.record(new UserArchivedDomainEvent(this.id.value));
 	}
 }

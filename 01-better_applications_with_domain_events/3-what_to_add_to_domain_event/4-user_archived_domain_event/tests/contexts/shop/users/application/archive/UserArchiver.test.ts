@@ -2,9 +2,9 @@ import { UserArchiver } from "../../../../../../src/contexts/shop/users/applicat
 import { UserDoesNotExist } from "../../../../../../src/contexts/shop/users/domain/UserDoesNotExist";
 import { UserStatus } from "../../../../../../src/contexts/shop/users/domain/UserStatus";
 import { MockEventBus } from "../../../../shared/infrastructure/MockEventBus";
+import { UserArchivedDomainEventMother } from "../../domain/UserArchivedDomainEventMother";
 import { UserIdMother } from "../../domain/UserIdMother";
 import { UserMother } from "../../domain/UserMother";
-import { UserStatusUpdatedDomainEventMother } from "../../domain/UserStatusUpdatedDomainEventMother";
 import { MockUserRepository } from "../../infrastructure/MockUserRepository";
 
 describe("UserArchiver should", () => {
@@ -29,10 +29,7 @@ describe("UserArchiver should", () => {
 			...existingUser.toPrimitives(),
 			status: UserStatus.Archived,
 		});
-		const expectedDomainEvent = UserStatusUpdatedDomainEventMother.create({
-			id: existingUser.id.value,
-			status: UserStatus.Archived,
-		});
+		const expectedDomainEvent = UserArchivedDomainEventMother.create(existingUser.id.value);
 
 		repository.shouldSearch(existingUser);
 		repository.shouldSave(archivedUser);
