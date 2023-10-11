@@ -1,11 +1,14 @@
 import { DomainEvent } from "../../../shared/domain/DomainEvent";
 
-export class UserUpdatedDomainEvent extends DomainEvent {
+export type UserEmailUpdatedDomainEventPrimitives = {
+	id: string;
+	email: string;
+};
+
+export class UserEmailUpdatedDomainEvent extends DomainEvent {
 	constructor(
 		private readonly id: string,
-		private readonly name: string,
 		private readonly email: string,
-		private readonly profilePicture: string,
 	) {
 		super();
 	}

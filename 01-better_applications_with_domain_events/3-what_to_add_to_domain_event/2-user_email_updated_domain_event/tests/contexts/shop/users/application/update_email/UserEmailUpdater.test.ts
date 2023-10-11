@@ -2,9 +2,9 @@ import { UserEmailUpdater } from "../../../../../../src/contexts/shop/users/appl
 import { UserDoesNotExist } from "../../../../../../src/contexts/shop/users/domain/UserDoesNotExist";
 import { MockEventBus } from "../../../../shared/infrastructure/MockEventBus";
 import { UserEmailMother } from "../../domain/UserEmailMother";
+import { UserEmailUpdatedDomainEventMother } from "../../domain/UserEmailUpdatedDomainEventMother";
 import { UserIdMother } from "../../domain/UserIdMother";
 import { UserMother } from "../../domain/UserMother";
-import { UserRegisteredDomainEventMother } from "../../domain/UserRegisteredDomainEventMother";
 import { MockUserRepository } from "../../infrastructure/MockUserRepository";
 
 describe("UserEmailUpdater should", () => {
@@ -31,9 +31,10 @@ describe("UserEmailUpdater should", () => {
 			...existingUser.toPrimitives(),
 			email: newEmail.value,
 		});
-		const expectedDomainEvent = UserRegisteredDomainEventMother.create(
-			userWithNewEmail.toPrimitives(),
-		);
+		const expectedDomainEvent = UserEmailUpdatedDomainEventMother.create({
+			id: existingUser.id.value,
+			email: newEmail.value,
+		});
 
 		repository.shouldSearch(existingUser);
 		repository.shouldSave(userWithNewEmail);

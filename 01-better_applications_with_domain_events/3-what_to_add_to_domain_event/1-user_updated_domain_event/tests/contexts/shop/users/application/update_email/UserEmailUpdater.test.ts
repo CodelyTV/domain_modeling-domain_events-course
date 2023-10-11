@@ -4,7 +4,7 @@ import { MockEventBus } from "../../../../shared/infrastructure/MockEventBus";
 import { UserEmailMother } from "../../domain/UserEmailMother";
 import { UserIdMother } from "../../domain/UserIdMother";
 import { UserMother } from "../../domain/UserMother";
-import { UserRegisteredDomainEventMother } from "../../domain/UserRegisteredDomainEventMother";
+import { UserUpdatedDomainEventMother } from "../../domain/UserUpdatedDomainEventMother";
 import { MockUserRepository } from "../../infrastructure/MockUserRepository";
 
 describe("UserEmailUpdater should", () => {
@@ -31,7 +31,7 @@ describe("UserEmailUpdater should", () => {
 			...existingUser.toPrimitives(),
 			email: newEmail.value,
 		});
-		const expectedDomainEvent = UserRegisteredDomainEventMother.create(
+		const expectedDomainEvent = UserUpdatedDomainEventMother.create(
 			userWithNewEmail.toPrimitives(),
 		);
 
