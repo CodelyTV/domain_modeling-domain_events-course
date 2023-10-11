@@ -6,6 +6,7 @@ export class UserRegisteredDomainEvent extends DomainEvent {
 		private readonly name: string,
 		private readonly email: string,
 		private readonly profilePicture: string,
+		private readonly status: string,
 	) {
 		super();
 	}
