@@ -1,4 +1,4 @@
-import { UserEmailChanger } from "../../../../../../src/contexts/shop/users/application/change_email/UserEmailChanger";
+import { UserEmailUpdater } from "../../../../../../src/contexts/shop/users/application/update_email/UserEmailUpdater";
 import { UserDoesNotExist } from "../../../../../../src/contexts/shop/users/domain/UserDoesNotExist";
 import { MockEventBus } from "../../../../shared/infrastructure/MockEventBus";
 import { UserEmailMother } from "../../domain/UserEmailMother";
@@ -7,10 +7,10 @@ import { UserMother } from "../../domain/UserMother";
 import { UserRegisteredDomainEventMother } from "../../domain/UserRegisteredDomainEventMother";
 import { MockUserRepository } from "../../infrastructure/MockUserRepository";
 
-describe("UserEmailChanger should", () => {
+describe("UserEmailUpdater should", () => {
 	const repository = new MockUserRepository();
 	const eventBus = new MockEventBus();
-	const userEmailChanger = new UserEmailChanger(repository, eventBus);
+	const userEmailUpdater = new UserEmailUpdater(repository, eventBus);
 
 	it("throw an error if the user does not exist", async () => {
 		const userId = UserIdMother.create();
@@ -18,12 +18,12 @@ describe("UserEmailChanger should", () => {
 
 		repository.shouldNotSearch(userId);
 
-		await expect(userEmailChanger.change(userId.value, email.value)).rejects.toThrow(
+		await expect(userEmailUpdater.update(userId.value, email.value)).rejects.toThrow(
 			new UserDoesNotExist(userId.value),
 		);
 	});
 
-	it("change the email of an existing user", async () => {
+	it("update the email of an existing user", async () => {
 		const existingUser = UserMother.create();
 		const newEmail = UserEmailMother.create();
 
@@ -39,6 +39,6 @@ describe("UserEmailChanger should", () => {
 		repository.shouldSave(userWithNewEmail);
 		eventBus.shouldPublish([expectedDomainEvent]);
 
-		await userEmailChanger.change(existingUser.id.value, newEmail.value);
+		await userEmailUpdater.update(existingUser.id.value, newEmail.value);
 	});
 });

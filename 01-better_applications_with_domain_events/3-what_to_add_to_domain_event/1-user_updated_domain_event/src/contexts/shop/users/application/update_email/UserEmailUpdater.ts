@@ -4,16 +4,16 @@ import { UserDoesNotExist } from "../../domain/UserDoesNotExist";
 import { UserId } from "../../domain/UserId";
 import { UserRepository } from "../../domain/UserRepository";
 
-export class UserEmailChanger {
+export class UserEmailUpdater {
 	constructor(
 		private readonly repository: UserRepository,
 		private readonly eventBus: EventBus,
 	) {}
 
-	async change(id: string, email: string): Promise<void> {
+	async update(id: string, email: string): Promise<void> {
 		const user = await this.findUser(id);
 
-		user.changeEmail(email);
+		user.updateEmail(email);
 
 		await this.repository.save(user);
 		await this.eventBus.publish(user.pullDomainEvents());
