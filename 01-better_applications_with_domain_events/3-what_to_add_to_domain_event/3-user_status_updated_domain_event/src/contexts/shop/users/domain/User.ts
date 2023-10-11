@@ -6,6 +6,7 @@ import { UserName } from "./UserName";
 import { UserProfilePicture } from "./UserProfilePicture";
 import { UserRegisteredDomainEvent } from "./UserRegisteredDomainEvent";
 import { UserStatus } from "./UserStatus";
+import { UserStatusUpdatedDomainEvent } from "./UserStatusUpdatedDomainEvent";
 
 export type UserPrimitives = {
 	id: string;
@@ -21,7 +22,7 @@ export class User extends AggregateRoot {
 		private readonly name: UserName,
 		private email: UserEmail,
 		private readonly profilePicture: UserProfilePicture,
-		private readonly status: UserStatus,
+		private status: UserStatus,
 	) {
 		super();
 	}
@@ -65,6 +66,12 @@ export class User extends AggregateRoot {
 	updateEmail(email: string): void {
 		this.email = new UserEmail(email);
 
-		this.record(new UserEmailUpdatedDomainEvent(this.id.value, this.email.value));
+		this.record(new UserEmailUpdatedDomainEvent(this.id.value, email));
+	}
+
+	updateStatus(status: UserStatus): void {
+		this.status = status;
+
+		this.record(new UserStatusUpdatedDomainEvent(this.id.value, status));
 	}
 }

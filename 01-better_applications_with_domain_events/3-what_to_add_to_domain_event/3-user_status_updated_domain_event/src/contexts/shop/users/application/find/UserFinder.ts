@@ -1,17 +1,15 @@
 import { User } from "../../domain/User";
-import { UserId } from "../../domain/UserId";
+import { UserFinder as DomainUserFinder } from "../../domain/UserFinder";
 import { UserRepository } from "../../domain/UserRepository";
 
 export class UserFinder {
-	constructor(private readonly repository: UserRepository) {}
+	private readonly finder: DomainUserFinder;
+
+	constructor(private readonly repository: UserRepository) {
+		this.finder = new DomainUserFinder(repository);
+	}
 
 	async find(id: string): Promise<User> {
-		const user = await this.repository.search(new UserId(id));
-
-		if (user === null) {
-			throw new Error(`User ${id} not found`);
-		}
-
-		return user;
+		return this.finder.find(id);
 	}
 }

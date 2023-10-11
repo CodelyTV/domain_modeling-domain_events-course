@@ -1,8 +1,9 @@
 import { EventBus } from "../../../../shared/domain/EventBus";
 import { UserFinder } from "../../domain/UserFinder";
 import { UserRepository } from "../../domain/UserRepository";
+import { UserStatus } from "../../domain/UserStatus";
 
-export class UserEmailUpdater {
+export class UserArchiver {
 	private readonly finder: UserFinder;
 
 	constructor(
@@ -12,10 +13,10 @@ export class UserEmailUpdater {
 		this.finder = new UserFinder(repository);
 	}
 
-	async update(id: string, email: string): Promise<void> {
+	async archive(id: string): Promise<void> {
 		const user = await this.finder.find(id);
 
-		user.updateEmail(email);
+		user.updateStatus(UserStatus.Archived);
 
 		await this.repository.save(user);
 		await this.eventBus.publish(user.pullDomainEvents());
