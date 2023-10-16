@@ -7,9 +7,9 @@ export type UserEmailUpdatedDomainEventPrimitives = {
 
 export class UserEmailUpdatedDomainEvent extends DomainEvent {
 	constructor(
-		private readonly id: string,
-		private readonly email: string,
+		public readonly id: string,
+		public readonly email: string,
 	) {
-		super();
+		super("user.email.updated");
 	}
 }

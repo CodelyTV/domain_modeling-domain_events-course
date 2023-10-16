@@ -1,13 +1,15 @@
 import { DomainEvent } from "../../../shared/domain/DomainEvent";
 
 export class UserRegisteredDomainEvent extends DomainEvent {
+	static eventName = "user.registered";
+
 	constructor(
-		private readonly id: string,
-		private readonly name: string,
-		private readonly email: string,
-		private readonly profilePicture: string,
-		private readonly status: string,
+		public readonly id: string,
+		public readonly name: string,
+		public readonly email: string,
+		public readonly profilePicture: string,
+		public readonly status: string,
 	) {
-		super();
+		super(UserRegisteredDomainEvent.eventName);
 	}
 }
