@@ -1,5 +1,5 @@
-import { DomainEvent } from "../../../../src/contexts/shared/domain/DomainEvent";
-import { EventBus } from "../../../../src/contexts/shared/domain/EventBus";
+import { DomainEvent } from "../../../../src/contexts/shared/domain/event/DomainEvent";
+import { EventBus } from "../../../../src/contexts/shared/domain/event/EventBus";
 
 export class MockEventBus implements EventBus {
 	private readonly mockPublish = jest.fn();

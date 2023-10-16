@@ -1,4 +1,4 @@
-import { DomainEvent } from "./DomainEvent";
+import { DomainEvent } from "./event/DomainEvent";
 
 export abstract class AggregateRoot {
 	private domainEvents: DomainEvent[] = [];

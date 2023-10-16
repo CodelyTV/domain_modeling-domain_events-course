@@ -1,5 +1,5 @@
-import { DomainEventName } from "../../../../shared/domain/DomainEventName";
-import { DomainEventSubscriber } from "../../../../shared/domain/DomainEventSubscriber";
+import { DomainEventName } from "../../../../shared/domain/event/DomainEventName";
+import { DomainEventSubscriber } from "../../../../shared/domain/event/DomainEventSubscriber";
 import { UserRegisteredDomainEvent } from "../../../../shop/users/domain/UserRegisteredDomainEvent";
 import { WelcomeEmailSender } from "./WelcomeEmailSender";
 

@@ -1,5 +1,5 @@
-import { DomainEventName } from "../../../../shared/domain/DomainEventName";
-import { DomainEventSubscriber } from "../../../../shared/domain/DomainEventSubscriber";
+import { DomainEventName } from "../../../../shared/domain/event/DomainEventName";
+import { DomainEventSubscriber } from "../../../../shared/domain/event/DomainEventSubscriber";
 import { UserArchivedDomainEvent } from "../../../../shop/users/domain/UserArchivedDomainEvent";
 import { UserEmailUpdatedDomainEvent } from "../../../../shop/users/domain/UserEmailUpdatedDomainEvent";
 import { UserLastActivityUpdater } from "./UserLastActivityUpdater";

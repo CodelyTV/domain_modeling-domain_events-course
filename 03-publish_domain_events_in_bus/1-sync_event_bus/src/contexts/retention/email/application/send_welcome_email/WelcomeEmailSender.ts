@@ -1,4 +1,4 @@
-import { EventBus } from "../../../../shared/domain/EventBus";
+import { EventBus } from "../../../../shared/domain/event/EventBus";
 import { UuidGenerator } from "../../../../shared/domain/UuidGenerator";
 import { EmailSender } from "../../domain/EmailSender";
 import { WelcomeEmail } from "../../domain/WelcomeEmail";

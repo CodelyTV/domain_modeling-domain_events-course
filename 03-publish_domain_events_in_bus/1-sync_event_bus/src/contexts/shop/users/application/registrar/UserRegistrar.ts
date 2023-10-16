@@ -1,4 +1,4 @@
-import { EventBus } from "../../../../shared/domain/EventBus";
+import { EventBus } from "../../../../shared/domain/event/EventBus";
 import { User } from "../../domain/User";
 import { UserRepository } from "../../domain/UserRepository";
 
