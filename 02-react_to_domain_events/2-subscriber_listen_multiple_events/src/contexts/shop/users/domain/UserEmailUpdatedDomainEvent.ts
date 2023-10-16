@@ -6,10 +6,13 @@ export type UserEmailUpdatedDomainEventPrimitives = {
 };
 
 export class UserEmailUpdatedDomainEvent extends DomainEvent {
+	static eventName = "user.email.updated";
+
 	constructor(
 		public readonly id: string,
 		public readonly email: string,
+		occurredOn?: Date,
 	) {
-		super("user.email.updated");
+		super(UserEmailUpdatedDomainEvent.eventName, occurredOn);
 	}
 }

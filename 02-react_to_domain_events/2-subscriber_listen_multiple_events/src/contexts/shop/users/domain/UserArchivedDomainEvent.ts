@@ -5,7 +5,12 @@ export type UserStatusUpdatedDomainEventPrimitives = {
 };
 
 export class UserArchivedDomainEvent extends DomainEvent {
-	constructor(public readonly id: string) {
-		super("user.archived");
+	static eventName = "user.archived";
+
+	constructor(
+		public readonly id: string,
+		occurredOn?: Date,
+	) {
+		super(UserArchivedDomainEvent.eventName, occurredOn);
 	}
 }
