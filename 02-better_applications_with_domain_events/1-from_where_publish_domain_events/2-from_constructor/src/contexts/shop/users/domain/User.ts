@@ -1,7 +1,9 @@
+import { EventBus } from "../../../shared/domain/EventBus";
 import { UserEmail } from "./UserEmail";
 import { UserId } from "./UserId";
 import { UserName } from "./UserName";
 import { UserProfilePicture } from "./UserProfilePicture";
+import { UserRegisteredDomainEvent } from "./UserRegisteredDomainEvent";
 
 export type UserPrimitives = {
 	id: string;
@@ -16,7 +18,11 @@ export class User {
 		private readonly name: UserName,
 		private readonly email: UserEmail,
 		private readonly profilePicture: UserProfilePicture,
-	) {}
+	) {
+		EventBus.publish([
+			new UserRegisteredDomainEvent(id.value, name.value, email.value, profilePicture.value),
+		]);
+	}
 
 	static create(id: string, name: string, email: string, profilePicture: string): User {
 		return new User(

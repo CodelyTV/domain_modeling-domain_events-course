@@ -1,13 +1,15 @@
+import { EventBus } from "../../../../../../src/contexts/shared/domain/EventBus";
 import { UserRegistrar } from "../../../../../../src/contexts/shop/users/application/registrar/UserRegistrar";
-import { MockEventBus } from "../../../../shared/infrastructure/MockEventBus";
 import { UserMother } from "../../domain/UserMother";
 import { UserRegisteredDomainEventMother } from "../../domain/UserRegisteredDomainEventMother";
 import { MockUserRepository } from "../../infrastructure/MockUserRepository";
 
 describe("UserRegistrar should", () => {
 	const repository = new MockUserRepository();
-	const eventBus = new MockEventBus();
-	const userRegistrar = new UserRegistrar(repository, eventBus);
+	const userRegistrar = new UserRegistrar(repository);
+
+	const mockPublishInEventBus = jest.fn();
+	EventBus.publish = mockPublishInEventBus.mockReturnValue(null);
 
 	it("register a valid user", async () => {
 		const expectedUser = UserMother.create();
@@ -16,7 +18,7 @@ describe("UserRegistrar should", () => {
 		const expectedDomainEvent = UserRegisteredDomainEventMother.create(expectedUserPrimitives);
 
 		repository.shouldSave(expectedUser);
-		eventBus.shouldPublish([expectedDomainEvent]);
+		expect(mockPublishInEventBus).toHaveBeenCalledWith([expectedDomainEvent]);
 
 		await userRegistrar.registrar(
 			expectedUserPrimitives.id,
