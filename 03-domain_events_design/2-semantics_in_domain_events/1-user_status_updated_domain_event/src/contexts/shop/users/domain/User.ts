@@ -1,36 +1,46 @@
-import { EventBus } from "../../../shared/domain/EventBus";
+import { AggregateRoot } from "../../../shared/domain/AggregateRoot";
 import { UserEmail } from "./UserEmail";
+import { UserEmailUpdatedDomainEvent } from "./UserEmailUpdatedDomainEvent";
 import { UserId } from "./UserId";
 import { UserName } from "./UserName";
 import { UserProfilePicture } from "./UserProfilePicture";
 import { UserRegisteredDomainEvent } from "./UserRegisteredDomainEvent";
+import { UserStatus } from "./UserStatus";
+import { UserStatusUpdatedDomainEvent } from "./UserStatusUpdatedDomainEvent";
 
 export type UserPrimitives = {
 	id: string;
 	name: string;
 	email: string;
 	profilePicture: string;
+	status: string;
 };
 
-export class User {
+export class User extends AggregateRoot {
 	private constructor(
 		public readonly id: UserId,
 		private readonly name: UserName,
-		private readonly email: UserEmail,
+		private email: UserEmail,
 		private readonly profilePicture: UserProfilePicture,
+		private status: UserStatus,
 	) {
-		EventBus.publish([
-			new UserRegisteredDomainEvent(id.value, name.value, email.value, profilePicture.value),
-		]);
+		super();
 	}
 
 	static create(id: string, name: string, email: string, profilePicture: string): User {
-		return new User(
+		const defaultUserStatus = UserStatus.Active;
+
+		const user = new User(
 			new UserId(id),
 			new UserName(name),
 			new UserEmail(email),
 			new UserProfilePicture(profilePicture),
+			defaultUserStatus,
 		);
+
+		user.record(new UserRegisteredDomainEvent(id, name, email, profilePicture, defaultUserStatus));
+
+		return user;
 	}
 
 	static fromPrimitives(primitives: UserPrimitives): User {
@@ -39,6 +49,7 @@ export class User {
 			new UserName(primitives.name),
 			new UserEmail(primitives.email),
 			new UserProfilePicture(primitives.profilePicture),
+			primitives.status as UserStatus,
 		);
 	}
 
@@ -48,6 +59,19 @@ export class User {
 			name: this.name.value,
 			email: this.email.value,
 			profilePicture: this.profilePicture.value,
+			status: this.status,
 		};
+	}
+
+	updateEmail(email: string): void {
+		this.email = new UserEmail(email);
+
+		this.record(new UserEmailUpdatedDomainEvent(this.id.value, email));
+	}
+
+	archive(): void {
+		this.status = UserStatus.Archived;
+
+		this.record(new UserStatusUpdatedDomainEvent(this.id.value, this.status));
 	}
 }

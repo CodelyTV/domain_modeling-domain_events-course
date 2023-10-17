@@ -1,5 +1,5 @@
 import { DomainEvent } from "./DomainEvent";
 
 export class EventBus {
-	static publish(events: DomainEvent[]): void {}
+	static async publish(events: DomainEvent[]): void {}
 }
