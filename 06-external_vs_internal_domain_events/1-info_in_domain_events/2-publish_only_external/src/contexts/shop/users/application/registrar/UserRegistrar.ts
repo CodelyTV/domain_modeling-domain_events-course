@@ -1,11 +1,11 @@
-import { EventBus } from "../../../../shared/domain/EventBus";
+import { InternalEventBus } from "../../../../shared/domain/InternalEventBus";
 import { User } from "../../domain/User";
 import { UserRepository } from "../../domain/UserRepository";
 
 export class UserRegistrar {
 	constructor(
 		private readonly repository: UserRepository,
-		private readonly eventBus: EventBus,
+		private readonly eventBus: InternalEventBus,
 	) {}
 
 	async registrar(id: string, name: string, email: string, profilePicture: string): Promise<void> {

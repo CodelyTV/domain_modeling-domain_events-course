@@ -15,4 +15,8 @@ export class UserEmailUpdatedDomainEvent extends DomainEvent {
 	) {
 		super(UserEmailUpdatedDomainEvent.eventName, occurredOn);
 	}
+
+	isExternal(): boolean {
+		return false;
+	}
 }

@@ -1,4 +1,5 @@
-export class DomainEvent {
+export abstract class DomainEvent {
+	static eventName = "domain_event";
 	public readonly occurredOn: Date;
 
 	protected constructor(
@@ -7,4 +8,6 @@ export class DomainEvent {
 	) {
 		this.occurredOn = occurredOn ?? new Date();
 	}
+
+	abstract isExternal(): boolean;
 }

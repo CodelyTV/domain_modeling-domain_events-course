@@ -1,4 +1,4 @@
-import { EventBus } from "../../../../shared/domain/EventBus";
+import { InternalEventBus } from "../../../../shared/domain/InternalEventBus";
 import { UuidGenerator } from "../../../../shared/domain/UuidGenerator";
 import { EmailSender } from "../../domain/EmailSender";
 import { WelcomeEmail } from "../../domain/WelcomeEmail";
@@ -7,7 +7,7 @@ export class WelcomeEmailSender {
 	constructor(
 		private readonly uuidGenerator: UuidGenerator,
 		private readonly sender: EmailSender,
-		private readonly eventBus: EventBus,
+		private readonly eventBus: InternalEventBus,
 	) {}
 
 	async send(userId: string, name: string, emailAddress: string): Promise<void> {

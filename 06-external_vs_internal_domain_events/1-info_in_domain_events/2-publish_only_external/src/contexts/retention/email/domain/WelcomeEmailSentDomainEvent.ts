@@ -11,4 +11,8 @@ export class WelcomeEmailSentDomainEvent extends DomainEvent {
 	) {
 		super("welcome_email.sent");
 	}
+
+	isExternal(): boolean {
+		return false;
+	}
 }

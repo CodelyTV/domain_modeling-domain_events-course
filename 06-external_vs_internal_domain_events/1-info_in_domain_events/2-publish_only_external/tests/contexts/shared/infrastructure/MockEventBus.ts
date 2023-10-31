@@ -1,7 +1,7 @@
 import { DomainEvent } from "../../../../src/contexts/shared/domain/DomainEvent";
-import { EventBus } from "../../../../src/contexts/shared/domain/EventBus";
+import { InternalEventBus } from "../../../../src/contexts/shared/domain/InternalEventBus";
 
-export class MockEventBus implements EventBus {
+export class MockEventBus implements InternalEventBus {
 	private readonly mockPublish = jest.fn();
 
 	async publish(events: DomainEvent[]): Promise<void> {

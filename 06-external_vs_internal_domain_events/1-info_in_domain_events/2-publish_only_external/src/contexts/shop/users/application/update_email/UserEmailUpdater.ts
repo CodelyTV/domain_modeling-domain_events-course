@@ -1,4 +1,4 @@
-import { EventBus } from "../../../../shared/domain/EventBus";
+import { InternalEventBus } from "../../../../shared/domain/InternalEventBus";
 import { UserFinder } from "../../domain/UserFinder";
 import { UserRepository } from "../../domain/UserRepository";
 
@@ -7,7 +7,7 @@ export class UserEmailUpdater {
 
 	constructor(
 		private readonly repository: UserRepository,
-		private readonly eventBus: EventBus,
+		private readonly eventBus: InternalEventBus,
 	) {
 		this.finder = new UserFinder(repository);
 	}
