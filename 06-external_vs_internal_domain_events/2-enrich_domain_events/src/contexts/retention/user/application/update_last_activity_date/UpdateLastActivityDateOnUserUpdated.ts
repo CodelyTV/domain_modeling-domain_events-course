@@ -1,7 +1,7 @@
 import { DomainEventName } from "../../../../shared/domain/DomainEventName";
 import { DomainEventSubscriber } from "../../../../shared/domain/DomainEventSubscriber";
+import { UserEmailUpdatedDomainEvent } from "../../../../shared/domain/shop/users/UserEmailUpdatedDomainEvent";
 import { UserArchivedDomainEvent } from "../../../../shop/users/domain/UserArchivedDomainEvent";
-import { UserEmailUpdatedDomainEvent } from "../../../../shop/users/domain/UserEmailUpdatedDomainEvent";
 import { UserLastActivityUpdater } from "./UserLastActivityUpdater";
 
 export class UpdateLastActivityDateOnUserUpdated

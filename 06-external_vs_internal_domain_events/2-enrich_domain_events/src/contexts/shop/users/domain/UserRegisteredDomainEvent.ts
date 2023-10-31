@@ -12,4 +12,8 @@ export class UserRegisteredDomainEvent extends DomainEvent {
 	) {
 		super(UserRegisteredDomainEvent.eventName);
 	}
+
+	isExternal(): boolean {
+		return false;
+	}
 }

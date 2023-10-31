@@ -13,4 +13,8 @@ export class UserArchivedDomainEvent extends DomainEvent {
 	) {
 		super(UserArchivedDomainEvent.eventName, occurredOn);
 	}
+
+	isExternal(): boolean {
+		return false;
+	}
 }

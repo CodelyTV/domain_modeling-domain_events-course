@@ -31,10 +31,9 @@ describe("UserEmailUpdater should", () => {
 			...existingUser.toPrimitives(),
 			email: newEmail.value,
 		});
-		const expectedDomainEvent = UserEmailUpdatedDomainEventMother.create({
-			id: existingUser.id.value,
-			email: newEmail.value,
-		});
+		const expectedDomainEvent = UserEmailUpdatedDomainEventMother.create(
+			userWithNewEmail.toPrimitives(),
+		);
 
 		repository.shouldSearch(existingUser);
 		repository.shouldSave(userWithNewEmail);
