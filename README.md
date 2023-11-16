@@ -18,5 +18,6 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/CodelyTV/domain_events-course/stargazers">Stars are welcome 😊</a>
+  <a href="https://github.com/CodelyTV/domain_events-course/stargazers">Stars are welcome 😊</a><br><br>
+  Course (Spanish): <a href="https://pro.codely.com/library/modelado-del-dominio-eventos-de-dominio">Modelado del dominio: Eventos de Dominio</a>
 </p>
