@@ -5,7 +5,7 @@
 </p>
 
 <h1 align="center">
-  🐉 Domain Events Course 
+  🐉 Domain Modeling: Domain Events 
 </h1>
 
 <p align="center">
