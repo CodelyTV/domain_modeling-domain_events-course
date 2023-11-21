@@ -35,14 +35,14 @@ export class InMemoryEventBus implements EventBus {
 		});
 	}
 
-	private subscribe(topic: string, subscriber: DomainEventSubscriber<DomainEvent>): void {
-		const currentSubscriptions = this.subscriptions.get(topic);
+	private subscribe(eventName: string, subscriber: DomainEventSubscriber<DomainEvent>): void {
+		const currentSubscriptions = this.subscriptions.get(eventName);
 		const subscription = subscriber.on.bind(subscriber);
 
 		if (currentSubscriptions) {
 			currentSubscriptions.push(subscription);
 		} else {
-			this.subscriptions.set(topic, [subscription]);
+			this.subscriptions.set(eventName, [subscription]);
 		}
 	}
 }
