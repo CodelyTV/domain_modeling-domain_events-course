@@ -19,15 +19,20 @@ export type UserPrimitives = {
 export class User extends AggregateRoot {
 	private constructor(
 		public readonly id: UserId,
-		private readonly name: UserName,
-		private email: UserEmail,
-		private readonly profilePicture: UserProfilePicture,
-		private status: UserStatus,
+		public readonly name: UserName,
+		public email: UserEmail,
+		public readonly profilePicture: UserProfilePicture,
+		public status: UserStatus,
 	) {
 		super();
 	}
 
-	static create(id: string, name: string, email: string, profilePicture: string): User {
+	static create(
+		id: string,
+		name: string,
+		email: string,
+		profilePicture: string,
+	): User {
 		const defaultUserStatus = UserStatus.Active;
 
 		const user = new User(
@@ -38,7 +43,15 @@ export class User extends AggregateRoot {
 			defaultUserStatus,
 		);
 
-		user.record(new UserRegisteredDomainEvent(id, name, email, profilePicture, defaultUserStatus));
+		user.record(
+			new UserRegisteredDomainEvent(
+				id,
+				name,
+				email,
+				profilePicture,
+				defaultUserStatus,
+			),
+		);
 
 		return user;
 	}
